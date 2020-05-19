@@ -1,4 +1,4 @@
-package com.ps.skin.utils;
+package com.ps.skin.common.page;
 
 import java.util.List;
 

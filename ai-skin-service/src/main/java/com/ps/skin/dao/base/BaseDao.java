@@ -1,7 +1,7 @@
 package com.ps.skin.dao.base;
 
-import com.ps.skin.common.Page;
-import com.ps.skin.utils.PageUtil;
+import com.ps.skin.common.page.Page;
+import com.ps.skin.common.page.PageUtil;
 import com.ps.skin.utils.ReflectionUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

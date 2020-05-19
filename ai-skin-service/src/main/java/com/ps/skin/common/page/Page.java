@@ -1,4 +1,4 @@
-package com.ps.skin.common;
+package com.ps.skin.common.page;
 
 import com.github.pagehelper.PageInfo;
 
