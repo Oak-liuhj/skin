@@ -53,7 +53,7 @@ public class ReturnResult<T> implements Serializable {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static ReturnResult getInstance(String jsonStr) {
+    public static ReturnResult getInstanceFormJson(String jsonStr) {
         if (StringUtils.isNotEmpty(jsonStr)) {
             try {
                 JSONObject json = JSONObject.parseObject(jsonStr);
