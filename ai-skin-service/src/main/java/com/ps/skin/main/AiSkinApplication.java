@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2020/05/18 20:48
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-@ComponentScan(basePackages = {"com.ps.skin.controller"})
+@ComponentScan(basePackages = {"com.ps.skin.controller","com.ps.skin.config"})
 @Slf4j
 public class AiSkinApplication {
     public static void main(String[] args) {

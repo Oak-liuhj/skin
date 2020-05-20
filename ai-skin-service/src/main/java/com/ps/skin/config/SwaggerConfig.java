@@ -47,7 +47,7 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket allRestApi() {
-        return buildDocket("V1.0", "com.ps.skin");
+        return buildDocket("V1.0", "com.ps.skin.controller");
     }
 
     private Docket buildDocket(final String groupName, final String packageStr) {

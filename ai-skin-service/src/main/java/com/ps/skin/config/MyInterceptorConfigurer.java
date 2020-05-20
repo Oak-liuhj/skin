@@ -24,7 +24,6 @@ public class MyInterceptorConfigurer extends WebMvcConfigurerAdapter {
         return new GlobalInterceptor();
     }
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 多个拦截器组成一个拦截器链
@@ -32,22 +31,12 @@ public class MyInterceptorConfigurer extends WebMvcConfigurerAdapter {
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(globalInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/HttpInvoker/RecordSyncService")
-                .excludePathPatterns("/HttpInvoker/RecordSyncService")
-                // add for modality worklist query
-                .excludePathPatterns("/works/v1/mwl/**")
-                .excludePathPatterns("/works/v1/weixin/**")
-                .excludePathPatterns("/works/v1/third/**")
-
                 .excludePathPatterns("/v2/api-docs")
                 .excludePathPatterns("/configuration/ui")
                 .excludePathPatterns("/swagger-resources")
                 .excludePathPatterns("/configuration/security")
                 .excludePathPatterns("/swagger-ui.html")
                 .excludePathPatterns("/webjars/**")
-                .excludePathPatterns("/doc.html")
-
-                .excludePathPatterns("/works/v1/logoutCallback")
                 .excludePathPatterns("/doc.html");
 
         super.addInterceptors(registry);
