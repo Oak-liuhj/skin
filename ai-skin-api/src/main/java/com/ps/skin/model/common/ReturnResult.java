@@ -1,7 +1,7 @@
 package com.ps.skin.model.common;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ps.skin.constant.AiSkinCodeAndMsgEnum;
+import com.ps.skin.constant.ReturnCodeAndMsgEnum;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -44,11 +44,11 @@ public class ReturnResult<T> implements Serializable {
         this.message = message;
     }
 
-    public ReturnResult(AiSkinCodeAndMsgEnum codeAndMsgEnum) {
+    public ReturnResult(ReturnCodeAndMsgEnum codeAndMsgEnum) {
         this(codeAndMsgEnum.getCode(), codeAndMsgEnum.getMessage(), null);
     }
 
-    public ReturnResult(AiSkinCodeAndMsgEnum codeAndMsgEnum, T data) {
+    public ReturnResult(ReturnCodeAndMsgEnum codeAndMsgEnum, T data) {
         this(codeAndMsgEnum.getCode(), codeAndMsgEnum.getMessage(), data);
     }
 

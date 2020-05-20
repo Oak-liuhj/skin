@@ -8,9 +8,16 @@ import com.ps.skin.model.common.ReturnResult;
  * @author liuhj
  * @date 2020/05/19 10:29
  */
-public enum AiSkinCodeAndMsgEnum {
+public enum ReturnCodeAndMsgEnum {
 
-    PARAMETER_ISNULL(100001, "输入参数为空"),
+    SUCCESS(200, "操作成功"),
+    SYSTEM_DB_CONNECT_FAILED(10000, "数据库连接失败"),
+    REQUEST_PARAM_LACK(100001, "参数缺失"),
+    REQUEST_PARAM_ILLEGAL(100002, "参数不合法"),
+
+    REQUEST_MOBILE_IS_NULL(100003, "用户手机号为空"),
+    THIS_USERNAME_HAS_EXIST(100004, "该用户已注册"),
+
     SERVER_EXCEPTION(500001, "服务端异常");
 
     /**
@@ -22,7 +29,7 @@ public enum AiSkinCodeAndMsgEnum {
      */
     private String message;
 
-    AiSkinCodeAndMsgEnum(int code, String message) {
+    ReturnCodeAndMsgEnum(int code, String message) {
         this.code = code;
         this.message = message;
     }
@@ -35,8 +42,8 @@ public enum AiSkinCodeAndMsgEnum {
         return message;
     }
 
-    public static AiSkinCodeAndMsgEnum getByCode(int code) {
-        for (AiSkinCodeAndMsgEnum item : AiSkinCodeAndMsgEnum.values()) {
+    public static ReturnCodeAndMsgEnum getByCode(int code) {
+        for (ReturnCodeAndMsgEnum item : ReturnCodeAndMsgEnum.values()) {
             if (item.code == code) {
                 return item;
             }
@@ -50,7 +57,7 @@ public enum AiSkinCodeAndMsgEnum {
      * @param codeAndMsgEnum 业务返回值枚举
      * @return ReturnResult
      */
-    public static ReturnResult getReturnResult(AiSkinCodeAndMsgEnum codeAndMsgEnum) {
+    public static ReturnResult getReturnResult(ReturnCodeAndMsgEnum codeAndMsgEnum) {
         return new ReturnResult(codeAndMsgEnum.getCode(), codeAndMsgEnum.getMessage());
     }
 
@@ -63,7 +70,7 @@ public enum AiSkinCodeAndMsgEnum {
      * @return ReturnResult
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static <T> ReturnResult getReturnResult(AiSkinCodeAndMsgEnum codeAndMsgEnum, T data) {
+    public static <T> ReturnResult getReturnResult(ReturnCodeAndMsgEnum codeAndMsgEnum, T data) {
         return new ReturnResult(codeAndMsgEnum.getCode(), codeAndMsgEnum.getMessage(), data);
     }
 

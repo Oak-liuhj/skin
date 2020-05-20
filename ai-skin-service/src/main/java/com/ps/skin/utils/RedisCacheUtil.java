@@ -27,8 +27,8 @@ public class RedisCacheUtil<T> {
     private RedisTemplate redisTemplate;
 
 
-    public T getCacheData(String key, Long expire, Class deskClass, Cacheables cacheable) {
-        return this.getCacheObject(key, expire, deskClass, false, cacheable);
+    public T get(String key, Long expire, Class deskClass, Cacheables cacheables) {
+        return this.getCacheObject(key, expire, deskClass, false, cacheables);
     }
 
     /**
@@ -37,11 +37,11 @@ public class RedisCacheUtil<T> {
      * @param key
      * @param expire    过期时间/秒
      * @param deskClass 对应的类型
-     * @param cacheable
+     * @param cacheables
      * @return
      */
-    public T getCacheDataList(String key, Long expire, Class deskClass, Cacheables cacheable) {
-        return this.getCacheObject(key, expire, deskClass, true, cacheable);
+    public T getList(String key, Long expire, Class deskClass, Cacheables cacheables) {
+        return this.getCacheObject(key, expire, deskClass, true, cacheables);
     }
 
     /**
@@ -49,7 +49,7 @@ public class RedisCacheUtil<T> {
      *
      * @param key
      */
-    public void delCacheWith(String key) {
+    public void del(String key) {
         key = this.makeRedisKey(key);
         redisTemplate.delete(key);
     }
@@ -85,7 +85,7 @@ public class RedisCacheUtil<T> {
                     if (obj instanceof List && !isList) {
                         throw new RuntimeException("当前Cacheable接口对应实现的getData返回值必须为单个对象，不能是List");
                     }
-                    this.setCacheObject(key, obj, expire);
+                    this.set(key, obj, expire);
                 }
             }
         } catch (Exception e) {
@@ -106,7 +106,7 @@ public class RedisCacheUtil<T> {
      * @param value 缓存的值 对象集合等要用fastJosn转成String
      * @return 缓存的对象
      */
-    private void setCacheObject(String key, T value, Long expire) {
+    private void set(String key, T value, Long expire) {
         key = this.makeRedisKey(key);
         String redisValue = null;
         if (null == value) {
@@ -131,7 +131,7 @@ public class RedisCacheUtil<T> {
      * @param key 缓存键值
      * @return 缓存键值对应的数据
      */
-    private String getCacheObject(String key) {
+    private String get(String key) {
         key = this.makeRedisKey(key);
         ValueOperations<String, String> operation = redisTemplate.opsForValue();
         return operation.get(key);
@@ -147,7 +147,7 @@ public class RedisCacheUtil<T> {
      */
     private <T> T getCacheObject(String key, Class deskClass) {
         key = this.makeRedisKey(key);
-        String redisValue = this.getCacheObject(key);
+        String redisValue = this.get(key);
         if (null == redisValue) {
             return null;
         }
@@ -164,7 +164,7 @@ public class RedisCacheUtil<T> {
      */
     private <T> T getCacheList(String key, Class deskClass) {
         key = this.makeRedisKey(key);
-        String redisValue = this.getCacheObject(key);
+        String redisValue = this.get(key);
         if (null == redisValue) {
             return null;
         }
