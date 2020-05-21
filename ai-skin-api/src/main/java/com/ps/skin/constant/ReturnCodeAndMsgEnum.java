@@ -17,6 +17,9 @@ public enum ReturnCodeAndMsgEnum {
 
     REQUEST_MOBILE_IS_NULL(100003, "用户手机号为空"),
     THIS_USERNAME_HAS_EXIST(100004, "该用户已注册"),
+    THIS_MOBILE_NOT_REGISTER(100005, "账号未注册"),
+    ADMIN_USER_HAS_BEEN_LOCKED(100006, "用户被锁定"),
+    PASSWORD_IS_NOT_CORRECT(100007,"密码不正确"),
 
     SERVER_EXCEPTION(500001, "服务端异常");
 

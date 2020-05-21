@@ -3,8 +3,11 @@ package com.ps.skin.controller;
 import com.ps.skin.constant.ReturnCodeAndMsgEnum;
 import com.ps.skin.model.common.ReturnResult;
 import com.ps.skin.model.entity.AiSkinAdmin;
+import com.ps.skin.model.request.AdminLoginReq;
 import com.ps.skin.model.request.AiSkinAdminReq;
+import com.ps.skin.model.response.AdminLoginResp;
 import com.ps.skin.service.AiSkinAdminService;
+import com.ps.skin.utils.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping(value = "skin/v1/admin")
-@Api(value = "skin/v1/login", tags = "登录控制器")
+@Api(value = "skin/v1/admin", tags = "登录控制器")
 public class AdminLoginController {
 
     private final HttpServletRequest request;
@@ -41,13 +44,20 @@ public class AdminLoginController {
     /**
      * 用户登录
      *
-     * @param xx
+     * @param adminLoginReq 用户登录请求实体
      * @return
      */
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "用户登录", notes = "用户登录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ReturnResult<String> login(@RequestBody String xx) {
-        return new ReturnResult<String>(ReturnCodeAndMsgEnum.REQUEST_PARAM_LACK);
+    public ReturnResult<AdminLoginResp> login(AdminLoginReq adminLoginReq) {
+        String ip = IpUtil.getIpAddress(request);
+        String mobile = adminLoginReq.getMobile().trim();
+        String password = adminLoginReq.getPassword().trim();
+        if (StringUtils.isBlank(mobile) || StringUtils.isBlank(password)) {
+            return new ReturnResult<>(ReturnCodeAndMsgEnum.REQUEST_PARAM_LACK);
+        }
+        ReturnResult<AdminLoginResp> returnResult = aiSkinAdminService.login(mobile, password, ip);
+        return returnResult;
     }
 
     /**
@@ -68,9 +78,9 @@ public class AdminLoginController {
      * @param skinAdminReq 请求参数实体
      * @return
      */
-    @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "用户注册", notes = "用户注册", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ReturnResult<String> register(@RequestBody @Validated AiSkinAdminReq skinAdminReq) {
+    public ReturnResult<String> addAdminUser(@RequestBody @Validated AiSkinAdminReq skinAdminReq) {
         if (StringUtils.isBlank(skinAdminReq.getUsername()) || StringUtils.isBlank(skinAdminReq.getPassword())) {
             return new ReturnResult<>(ReturnCodeAndMsgEnum.REQUEST_PARAM_LACK);
         }
@@ -82,7 +92,7 @@ public class AdminLoginController {
         if (null != aiSkinAdmin) {
             return new ReturnResult<>(ReturnCodeAndMsgEnum.THIS_USERNAME_HAS_EXIST);
         }
-        aiSkinAdminService.registerAdminUser(skinAdminReq);
+        aiSkinAdminService.addAdminUser(skinAdminReq);
         return new ReturnResult<>(ReturnCodeAndMsgEnum.SUCCESS);
     }
 

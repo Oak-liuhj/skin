@@ -64,7 +64,7 @@ public class RedisCacheUtil<T> {
      * @param cacheables 缓存参数接口
      * @return
      */
-    private T getCacheObject(String key, Long expire, Class deskClass, boolean isList, Cacheables cacheables) {
+    public T getCacheObject(String key, Long expire, Class deskClass, boolean isList, Cacheables cacheables) {
         key = this.makeRedisKey(key);
         String lockKey = RedisCacheUtil.RedisCacheUtilLockKeyPre + key + "_";
         T obj = null;
@@ -106,7 +106,7 @@ public class RedisCacheUtil<T> {
      * @param value 缓存的值 对象集合等要用fastJosn转成String
      * @return 缓存的对象
      */
-    private void set(String key, T value, Long expire) {
+    public void set(String key, T value, Long expire) {
         key = this.makeRedisKey(key);
         String redisValue = null;
         if (null == value) {
@@ -116,7 +116,7 @@ public class RedisCacheUtil<T> {
             redisValue = (String) value;
         } else {
             String objValue = JSONObject.toJSON(value).toString();
-            redisValue = (String) objValue;
+            redisValue = objValue;
         }
         ValueOperations<String, String> operation = redisTemplate.opsForValue();
         operation.set(key, redisValue);
@@ -131,7 +131,7 @@ public class RedisCacheUtil<T> {
      * @param key 缓存键值
      * @return 缓存键值对应的数据
      */
-    private String get(String key) {
+    public String get(String key) {
         key = this.makeRedisKey(key);
         ValueOperations<String, String> operation = redisTemplate.opsForValue();
         return operation.get(key);
@@ -145,7 +145,7 @@ public class RedisCacheUtil<T> {
      * @param <T>
      * @return
      */
-    private <T> T getCacheObject(String key, Class deskClass) {
+    public <T> T getCacheObject(String key, Class deskClass) {
         key = this.makeRedisKey(key);
         String redisValue = this.get(key);
         if (null == redisValue) {
@@ -162,7 +162,7 @@ public class RedisCacheUtil<T> {
      * @param <T>
      * @return
      */
-    private <T> T getCacheList(String key, Class deskClass) {
+    public <T> T getCacheList(String key, Class deskClass) {
         key = this.makeRedisKey(key);
         String redisValue = this.get(key);
         if (null == redisValue) {
