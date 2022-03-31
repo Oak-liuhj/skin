@@ -18,7 +18,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skipTests>true</skipTests>  <!-- 跳过 mvn test -->
-        <spring.boot.version>1.5.10.RELEASE</spring.boot.version>
+        <spring.boot.version>2.5.12</spring.boot.version>
     </properties>
 
     <dependencies>
